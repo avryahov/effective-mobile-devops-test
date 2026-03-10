@@ -1,2 +1,8 @@
 .DS_Store
 *.log
+__pycache__/
+.env
+secrets/*.txt
+!secrets/*.example
+keys/*
+!keys/.gitkeep

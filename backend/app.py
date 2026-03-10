@@ -1,9 +1,26 @@
+import os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
-HOST = "0.0.0.0"
-PORT = 8080
-RESPONSE_BODY = b"Hello from Effective Mobile!"
+DEFAULT_HOST = "0.0.0.0"
+DEFAULT_PORT = 8080
+DEFAULT_RESPONSE = "Hello from Effective Mobile!"
+HOST = os.getenv("APP_HOST", DEFAULT_HOST)
+PORT = int(os.getenv("APP_PORT", str(DEFAULT_PORT)))
+RESPONSE_FILE = os.getenv("APP_RESPONSE_FILE", "/run/secrets/backend_response.txt")
+
+
+def load_response_body():
+    if os.path.exists(RESPONSE_FILE):
+        with open(RESPONSE_FILE, "r", encoding="utf-8") as secret_file:
+            value = secret_file.read().strip()
+            if value:
+                return value.encode("utf-8")
+
+    return os.getenv("APP_RESPONSE", DEFAULT_RESPONSE).encode("utf-8")
+
+
+RESPONSE_BODY = load_response_body()
 
 
 class RequestHandler(BaseHTTPRequestHandler):
