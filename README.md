@@ -47,6 +47,7 @@ Hello from Effective Mobile!
 1. `backend` слушает порт `8080` только внутри docker-сети.
 2. `nginx` слушает порт `80` на хосте.
 3. `nginx` проксирует запросы на сервис `backend` по имени сервиса Docker Compose.
+4. Для обоих сервисов настроены healthcheck, а `nginx` стартует после готовности `backend`.
 
 Схема взаимодействия:
 

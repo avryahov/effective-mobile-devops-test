@@ -8,6 +8,12 @@ RESPONSE_BODY = b"Hello from Effective Mobile!"
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
+        if self.path == "/healthz":
+            self.send_response(200)
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
+
         if self.path != "/":
             self.send_error(404, "Not Found")
             return
