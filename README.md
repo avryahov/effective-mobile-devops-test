@@ -10,6 +10,7 @@
 ```text
 .
 ├── backend
+│   ├── .dockerignore
 │   ├── app.py
 │   └── Dockerfile
 ├── nginx
@@ -59,3 +60,9 @@ client -> localhost:80 -> nginx -> backend:8080
 - Docker Compose
 - Nginx
 - Python 3.12
+
+## Замечания по реализации
+
+- Базовый образ backend: `python:3.12-alpine`
+- Процесс backend запускается от непривилегированного пользователя
+- В build context backend исключены служебные Python-файлы через `.dockerignore`
