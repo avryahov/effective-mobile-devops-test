@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: effective-mobile-backend
+    expose:
+      - "8080"
+    networks:
+      - effective-mobile-network
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: effective-mobile-nginx
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - effective-mobile-network
+
+networks:
+  effective-mobile-network:
+    name: effective-mobile-network
