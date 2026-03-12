@@ -4,6 +4,13 @@ services:
       context: ./backend
     container_name: ${BACKEND_CONTAINER_NAME:-effective-mobile-backend}
     restart: unless-stopped
+    cpus: 0.50
+    mem_limit: 128m
+    pids_limit: 64
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 2048
     expose:
       - "${APP_PORT:-8080}"
     environment:
@@ -32,6 +39,13 @@ services:
     image: nginx:1.27-alpine
     container_name: ${NGINX_CONTAINER_NAME:-effective-mobile-nginx}
     restart: unless-stopped
+    cpus: 0.50
+    mem_limit: 128m
+    pids_limit: 128
+    ulimits:
+      nofile:
+        soft: 2048
+        hard: 4096
     depends_on:
       backend:
         condition: service_healthy

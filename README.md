@@ -84,6 +84,7 @@ client -> localhost:80 -> nginx -> backend:8080
 - Параметры compose вынесены в `.env`
 - Локальные секреты и ключи не хранятся в git: используются `secrets/*.example` и каталог `keys/`
 - Для контейнеров включены `read_only`, `tmpfs`, `cap_drop` и `no-new-privileges`
+- Для сервисов заданы явные resource limits: `cpus`, `mem_limit`, `pids_limit`, `ulimits`
 
 ## Работа с секретами и ключами
 
